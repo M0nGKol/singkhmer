@@ -1,0 +1,33 @@
+# 30 example sentences in the review format: source <TAB> romanized <TAB> pairs
+# Status: AI-DRAFTED, NOT VERIFIED. They show the format and give a first smoke test.
+# Replace them with real messages; never put drafted sentences in the test set.
+author_draft	jg tv nham bay te?	jg=ចង់ | tv=ទៅ | nham=ញ៉ាំ | bay=បាយ | te?=ទេ?
+author_draft	knhom ot mean luy te	knhom=ខ្ញុំ | ot=អត់ | mean=មាន | luy=លុយ | te=ទេ
+author_draft	tomorrow mean meeting te bong?	tomorrow=tomorrow | mean=មាន | meeting=meeting | te=ទេ | bong?=បង?
+author_draft	tov kat sok	tov=ទៅ | kat=កាត់ | sok=សក់
+author_draft	sok sabay te?	sok=សុខ | sabay=សប្បាយ | te?=ទេ?
+author_draft	hang nis chhnganh nas	hang=ហាង | nis=នេះ | chhnganh=ឆ្ងាញ់ | nas=ណាស់
+author_draft	rean math mong ponman?	rean=រៀន | math=math | mong=ម៉ោង | ponman?=ប៉ុន្មាន?
+author_draft	som arkun bong	som=សូម | arkun=អរគុណ | bong=បង
+author_draft	ot chhnganh te, thlai pek	ot=អត់ | chhnganh=ឆ្ងាញ់ | te,=ទេ | thlai=ថ្លៃ | pek=ពេក
+author_draft	bong nov na?	bong=បង | nov=នៅ | na?=ណា?
+author_draft	oun mok dol haey	oun=អូន | mok=មក | dol=ដល់ | haey=ហើយ
+author_draft	kom plex nham bay na	kom=កុំ | plex=ភ្លេច | nham=ញ៉ាំ | bay=បាយ | na=ណា
+author_draft	thngai nis rovul nas	thngai=ថ្ងៃ | nis=នេះ | rovul=រវល់ | nas=ណាស់
+author_draft	send file mk knhom phong	send=send | file=file | mk=មក | knhom=ខ្ញុំ | phong=ផង
+author_draft	deadline project jit dol hz	deadline=deadline | project=project | jit=ជិត | dol=ដល់ | hz=ហើយ
+author_draft	class nis pibak nas	class=class | nis=នេះ | pibak=ពិបាក | nas=ណាស់
+author_draft	nham ey del?	nham=ញ៉ាំ | ey=អី | del?=ដែរ?
+author_draft	tv phsar jea mouy knea	tv=ទៅ | phsar=ផ្សារ | jea=ជា | mouy=មួយ | knea=គ្នា
+author_draft	lo2 nas bong	lo2=ល្អៗ | nas=ណាស់ | bong=បង
+author_draft	ot ey te	ot=អត់ | ey=អី | te=ទេ
+author_draft	check email phong	check=check | email=email | phong=ផង
+author_draft	knhom chea sis	knhom=ខ្ញុំ | chea=ជា | sis=សិស្ស
+author_draft	pel na tv sala?	pel=ពេល | na=ណា | tv=ទៅ | sala?=សាលា?
+author_draft	bong jol jet te?	bong=បង | jol=ចូល | jet=ចិត្ត | te?=ទេ?
+author_draft	rean online thngai saek	rean=រៀន | online=online | thngai=ថ្ងៃ | saek=ស្អែក
+author_draft	phone os tmor hz	phone=phone | os=អស់ | tmor=ថ្ម | hz=ហើយ
+author_draft	jg ban kafe mouy	jg=ចង់ | ban=បាន | kafe=កាហ្វេ | mouy=មួយ
+author_draft	mean promotion te?	mean=មាន | promotion=promotion | te?=ទេ?
+author_draft	sl bong nas	sl=ស្រលាញ់ | bong=បង | nas=ណាស់
+author_draft	chas, knhom nov ptes	chas,=ចាស | knhom=ខ្ញុំ | nov=នៅ | ptes=ផ្ទះ

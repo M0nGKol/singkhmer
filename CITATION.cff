@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use this dataset or code, please cite it as below."
+title: "SingKhmer: A Sentence-Level Benchmark for Code-Mixed Romanized Khmer"
+version: 0.1.0
+date-released: 2026-11-11
+license: MIT
+authors:
+  - family-names: Chan
+    given-names: Ekmongkol
+keywords:
+  - Khmer
+  - romanization
+  - transliteration
+  - code-mixing
+  - low-resource NLP

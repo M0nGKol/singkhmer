@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SingKhmer sentence record",
+  "description": "One romanized Khmer sentence with its Khmer-script form, aligned word by word. Cross-field rules (tokens join into khmer, verified/test rules) are checked by `singkhmer validate`.",
+  "type": "object",
+  "required": ["id", "romanized", "khmer", "tokens", "source", "origin", "verified", "split", "version"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z]{2,5}-[a-z0-9]{1,8}-\\d{3,8}$" },
+    "romanized": { "type": "string", "minLength": 1, "description": "Exactly as typed (lowercased, spaces collapsed)." },
+    "khmer": { "type": "string", "minLength": 1, "description": "Correct Khmer script, normalized with normalize_khmer()." },
+    "tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["rom", "lang", "km"],
+        "properties": {
+          "rom": { "type": "string", "minLength": 1 },
+          "lang": { "enum": ["km", "en", "num", "other"] },
+          "km": { "type": "string", "minLength": 1 },
+          "alternatives": { "type": "array", "items": { "type": "string" } }
+        },
+        "additionalProperties": false
+      }
+    },
+    "source": {
+      "enum": ["public_comment", "youtube_comment", "donated_chat", "own_chat", "survey",
+               "author_draft", "seed_pairs", "synthetic_wiki", "user_feedback"]
+    },
+    "origin": { "enum": ["human", "ai_draft_human_fixed", "ai_draft", "synthetic"] },
+    "verified": { "type": "boolean" },
+    "split": { "enum": ["train", "dev", "test", "unassigned"] },
+    "version": { "type": "string", "pattern": "^v\\d+\\.\\d+$" },
+    "group": { "type": "string", "description": "Records from the same chat/thread/video share a group so they land in the same split." },
+    "ambiguous": { "type": "boolean" },
+    "annotators": { "type": "array", "items": { "type": "string", "pattern": "^a\\d{2,3}$" } },
+    "agreement": { "type": "boolean" },
+    "notes": { "type": "string" }
+  },
+  "additionalProperties": false
+}

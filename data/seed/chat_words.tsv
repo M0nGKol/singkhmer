@@ -1,0 +1,116 @@
+# Everyday chat words and how people spell them in romanized Khmer.
+# Format: khmer <TAB> meaning <TAB> spelling1,spelling2,...
+# Status: being checked by the author (native speaker). Run `make seed` after editing.
+បង	older sibling / polite "you"	bong,bg,bang
+អូន	younger sibling / "you" to someone younger	oun,on,own
+ញ៉ាំ	eat	nham,nyam,nhaam
+បាយ	rice / meal	bay,bai
+ញ៉ាំបាយ	eat a meal	nham bay,nhambay,nyam bai
+អត់	not / no	ot,at,ort
+ទេ	no / question particle	te,teh,de
+ហើយ	already / and	haey,hery,heuy,hz,hy
+អី	what	ey,ei,i
+អ្វី	what (formal)	avey,avei,ey
+ម៉េច	how / why	mech,mec,mes,mej
+យ៉ាងម៉េច	how	yang mech,yangmech
+ម្ដេច	how (variant spelling)	mdech,mdach
+ណាស់	very	nas,nah,nass
+ល្អ	good	lo,l'or,laor,l'o
+ល្អៗ	good (repeated)	lo2,lo lo,l'or2
+ចង់	want	jong,jg,chong,chang
+ទៅ	go	tov,tv,tou,dov
+មក	come	mok,mk,mork
+ដល់	arrive / reach	dol,dal,dl
+នៅ	at / still / yet	nov,nv,nou
+ណា	where / which	na,nar
+នេះ	this	nis,neh,nih,nes
+នោះ	that	nuh,noh,nus
+ហ្នឹង	that one / this one	nhung,nerng,hnung,nung
+ចុះ	so / then (particle)	chos,choh,jos,joh
+ផង	also / please	phong,pong,ph
+ដែរ	too / also	dae,der,del,dea
+ទិញ	buy	tinh,ting,tenh
+លុយ	money	luy,lui,louy
+ថ្ងៃនេះ	today	thngai nis,tngai nis,thngainis
+ស្អែក	tomorrow	saek,s'aek,sa'ek,sek
+ម្សិលមិញ	yesterday	msel minh,mselminh,msil minh
+ម៉ោង	hour / o'clock	mong,morng,maong
+ប៉ុន្មាន	how many / how much	ponman,pon man,pnm
+រៀន	study	rean,rien,rian
+សាលា	school	sala,salea
+ធ្វើ	do / make	tver,tvee,thver,tveu
+ធ្វើការ	work	tver ka,tverka,thver kar
+ដេក	sleep	dek,deik
+ងងុយ	sleepy	ngnguy,ngnguoy,nguy
+ឆ្ងាញ់	delicious	chhnganh,chnganh,chngagn
+ថ្លៃ	expensive	thlai,tlai,tlay
+ថោក	cheap	thouk,thok,tok
+ពិត	true / real	pit,pet
+មែន	yes / really	men,mern, man
+បាទ	yes (male speaker)	bat,bart,baat
+ចាស	yes (female speaker)	chas,jas,cha, jah, ja
+ចាស់	old	chas,jas,chah
+អរគុណ	thank you	arkun,akun,orkun,okun,or kun
+សូមអរគុណ	thank you (polite)	som arkun,som akun,sorm arkun
+សួស្តី	hello	suosdey,susdey,sousdey,sour sdey
+សុខសប្បាយ	fine / well	sok sabay,soksabay,sok sabai
+សប្បាយ	happy / fun	sabay,sabai,sobay
+រវល់	busy	rovul,rovol,rvl
+ទំនេរ	free (not busy)	tomne,tumne,tom ne
+ស្រលាញ់	love	srolanh,sralanh,sl,srolagn
+នឹក	miss (someone)	nek,nerk,nuek
+ខឹង	angry	khoeng,khung,kheng
+ពិបាក	difficult	pibak,pibaak,pi bak
+ងាយ	easy	ngay,ngai
+ឆាប់	quick / soon	chhab,chab,jab
+យឺត	late / slow	yeut,yert,yut
+រួច	finished / done	ruoch,rouch,ruch,ruoj
+ចាំ	wait / remember	cham,jam
+ប្រាប់	tell	prab,brab
+ឆ្លើយ	answer	chhlery,chleuy,chlery
+ផ្ញើ	send	phnheu,pnher,pnhae
+ផ្សារ	market	phsar,psar,psa
+ផ្ទះ	house / home	pteah,ptes,phteas
+ម៉ាក់	mom	mak,m'ak
+ប៉ា	dad	pa,ba
+គ្នា	together / each other	knea,knia,gnea
+មួយ	one	mouy,muoy,muy
+ពីរ	two	pi,pir
+ជាមួយ	with	jea mouy,chea muoy,jamuoy
+ចូលចិត្ត	like	chol chet,jol jet,choul chit
+ចូល	enter	chol,jol,choul
+ចេញ	go out / leave	chenh,jenh,chegn
+ឥឡូវ	now	ilov,eylov,ey lov
+ពេលណា	when	pel na,pelna
+ពេល	time / when	pel,pil
+ធ្លាប់	ever / used to	thloab,tloab,tlop
+អាច	can / able	ach,arch,aj
+បាន	can / got	ban,baan,bn
+មិន	not	min,mn,mun
+ច្រើន	many / much	chreun,chran,jrern,chraen
+តិច	few / little	tech,tich,tic
+ធំ	big	thom,tom,thum
+តូច	small	toch,touch,tuch
+ទឹក	water	tek,teuk,tuek,terk
+ទឹកកក	ice	tek kok,teuk kok,tekkok
+កាហ្វេ	coffee	kafe,kafae,caffe
+មិត្ត	friend	mit,met,mith
+គ្រូ	teacher	kru,krou,kro
+សិស្ស	student	sis,seus,ses,sers
+ម៉ូតូ	motorbike	moto,motor
+ឡាន	car	lan,laan
+យប់	night	yub,yup,yob
+ព្រឹក	morning	prek,pruek,prik
+ល្ងាច	evening	lngach,lngeach,ngach,lngech 
+ថ្មី	new	thmey,tmey,thmei
+សក់	hair	sok,sak, sork
+កាត់	cut	kat,kart
+ហាង	shop	hang,harng
+ទូរស័ព្ទ	phone	turasap,tourasab,tursab, tusab
+ថ្ម	battery / stone	thmor,tmor,tmo
+អស់	run out / all	os,ors,ahs
+ជិត	near / almost	jit,chit,jet
+ឆ្ងាយ	far	chhngay,chngay,chhngai, cngay
+ពេក	too (much)	pek,peik
+ខ្ញុំ	I / me	knhom,khnhom,nhom,kh
+សុខ	well / peace	sok,sukh

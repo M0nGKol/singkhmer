@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Data: large or private files stay out of git (track them with DVC instead)
+data/raw/*
+data/interim/*
+data/annotated/*
+data/processed/*
+data/release/*
+!data/**/.gitkeep
+!data/raw/SOURCES.md
+
+# Never commit private chats, consent forms or review sheets with personal info
+private/
+*.consent.*
+
+# OS / editors
+.DS_Store
+.vscode/
+.idea/

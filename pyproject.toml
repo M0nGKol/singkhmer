@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "singkhmer"
+version = "0.1.0"
+description = "Data pipeline and benchmark for converting romanized Khmer (Sing Khmer) chat text into Khmer script."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Chan Ekmongkol" }]
+keywords = ["khmer", "nlp", "transliteration", "romanization", "low-resource", "code-mixing"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Topic :: Text Processing :: Linguistic",
+]
+dependencies = [
+  "pandas>=2.0",
+  "pyarrow>=14",
+  "jsonschema>=4.0",
+  "khmer-nltk>=1.6",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "ruff>=0.4"]
+corpus = ["datasets>=2.19"]
+
+[project.scripts]
+singkhmer = "singkhmer.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+singkhmer = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"

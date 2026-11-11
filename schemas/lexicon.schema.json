@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SingKhmer lexicon entry",
+  "description": "A Khmer word with observed human spellings (variants, with counts) and rule-based guesses (generated).",
+  "type": "object",
+  "required": ["khmer", "variants"],
+  "properties": {
+    "khmer": { "type": "string", "minLength": 1 },
+    "variants": {
+      "type": "object",
+      "description": "Observed human spelling -> number of times seen (seed lists count as 1).",
+      "propertyNames": { "pattern": "^[a-z0-9' ]+$" },
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
+    "generated": { "type": "array", "items": { "type": "string" } },
+    "freq": { "type": "integer", "minimum": 0 },
+    "freq_rank": { "type": ["integer", "null"], "minimum": 1 },
+    "sources": { "type": "array", "items": { "type": "string" } },
+    "meaning": { "type": "string" }
+  },
+  "additionalProperties": false
+}

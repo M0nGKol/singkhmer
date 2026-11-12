@@ -114,6 +114,7 @@ singkhmer evaluate --data data/interim/synthetic_eval.jsonl   # B0 vs B2 side by
 | `singkhmer build-lexicon` / `synth` | Corpus → lexicon (with real spelling counts) → synthetic pairs |
 | `singkhmer new-words` / `add-words` | Find words in your chats that nobody has spelled yet → add them to the word list |
 | `singkhmer split` | Leak-free train/dev/test assignment |
+| `singkhmer show` | Look inside any data file: samples, `--search`, `--random` |
 | `singkhmer validate` / `stats` | Check every rule; print dataset statistics |
 | `singkhmer train-lm` / `convert` / `evaluate` | Train the language model, convert sentences, score B0 vs B2 |
 | `singkhmer release` | Package `data/release/<version>/` with dataset card, stats and checksums |

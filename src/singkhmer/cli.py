@@ -103,6 +103,43 @@ def cmd_evaluate(a):
     _print({"data": a.data, **results})
 
 
+def cmd_show(a):
+    """Print samples of any data file in a readable way."""
+    import random
+
+    from .schema import read_jsonl
+    path = Path(a.file)
+    if path.suffix == ".jsonl":
+        rows = list(read_jsonl(path))
+    else:
+        rows = [ln for ln in path.read_text(encoding="utf-8").splitlines() if ln and not ln.startswith("#")]
+    if a.search:
+        q = a.search.lower()
+        rows = [r for r in rows if q in json.dumps(r, ensure_ascii=False).lower()]
+    total = len(rows)
+    rows = random.Random(a.seed).sample(rows, min(a.n, total)) if a.random else rows[: a.n]
+    print(f"{path}  ({total} rows{', matching ' + repr(a.search) if a.search else ''}; showing {len(rows)})\n")
+    for r in rows:
+        if isinstance(r, str):                                  # corpus or tsv line
+            print("  " + r.replace(" ", "·") if path.suffix == ".txt" else "  " + r)
+        elif "variants" in r:                                    # lexicon entry
+            human = ", ".join(f"{sp}({n})" for sp, n in sorted(r["variants"].items(), key=lambda x: -x[1]))
+            gen = ", ".join(r.get("generated", []))
+            meaning = f"  [{r['meaning']}]" if r.get("meaning") else ""
+            print(f"  {r['khmer']}{meaning}  freq={r.get('freq', 0)}")
+            print(f"      people: {human or '-'}")
+            print(f"      guessed: {gen or '-'}")
+        else:                                                    # sentence record
+            flag = "✓ verified" if r.get("verified") else f"· {r.get('origin')}"
+            print(f"  {r['romanized']}")
+            print(f"  → {r['khmer']}      [{r.get('source')}, {flag}]")
+            amb = [f"{t['rom']}: {t['km']} or {'/'.join(t['alternatives'])}"
+                   for t in r["tokens"] if t.get("alternatives")]
+            if amb and a.details:
+                print("    ambiguous: " + "; ".join(amb))
+            print()
+
+
 def cmd_validate(a):
     from .schema import read_jsonl, validate_lexicon_entry, validate_record
     check = validate_lexicon_entry if a.kind == "lexicon" else validate_record
@@ -277,6 +314,15 @@ def main(argv=None):
             s.add_argument("--data", nargs="+", required=True)
             s.add_argument("--mode", choices=["b0", "b2", "both"], default="both")
             s.add_argument("--limit", type=int, default=None)
+
+    s = sub.add_parser("show", help="print samples of a data file in a readable way")
+    s.add_argument("file")
+    s.add_argument("-n", type=int, default=10, help="how many rows to show")
+    s.add_argument("--random", action="store_true", help="random rows instead of the first ones")
+    s.add_argument("--search", help="only rows containing this text (romanized or Khmer)")
+    s.add_argument("--details", action="store_true", help="also show ambiguous words")
+    s.add_argument("--seed", type=int, default=None)
+    s.set_defaults(func=cmd_show)
 
     s = sub.add_parser("validate", help="check dataset files against the rules")
     s.add_argument("files", nargs="+")

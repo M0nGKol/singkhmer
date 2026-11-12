@@ -4,9 +4,9 @@ LIMIT ?= 3000        # Wikipedia articles to process (raise for the full run)
 N_SYNTH ?= 50000     # synthetic sentence pairs to generate
 VERSION ?= v0.1      # dataset release version
 DOCS ?= 20000        # web documents to stream with `make webcorpus`
-CORPORA = $(wildcard data/interim/corpus*.txt)
+CORPORA = $(filter-out data/interim/corpus_heldout.txt,$(wildcard data/interim/corpus*.txt))
 
-.PHONY: help setup test lint seed download corpus webcorpus lexicon synth newwords addwords split validate stats release all
+.PHONY: help setup test lint seed download corpus webcorpus lexicon synth train evalset eval newwords addwords split validate stats release all
 
 help:
 	@grep -E '^[a-z]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-10s %s\n", $$1, $$2}'
@@ -38,6 +38,16 @@ lexicon: ## Build the lexicon from every corpus file (+ seed and generated spell
 
 synth: ## Generate synthetic romanized/Khmer sentence pairs
 	singkhmer synth --corpus $(CORPORA) --lexicon data/processed/lexicon.jsonl --n $(N_SYNTH) --out data/interim/synthetic.jsonl
+
+train: ## Train the language model on every corpus file (keeps 2% of sentences unseen)
+	singkhmer train-lm --corpus $(CORPORA)
+
+evalset: ## Make 1,000 test pairs from the unseen sentences (run after train)
+	singkhmer synth --corpus data/interim/corpus_heldout.txt --n 1000 --seed 99 --out data/interim/synthetic_eval.jsonl
+
+eval: ## Score B0 (word by word) vs B2 (context) on the test pairs and the drafted chat sentences
+	singkhmer evaluate --data data/interim/synthetic_eval.jsonl
+	singkhmer evaluate --data data/seed/dev_draft.jsonl
 
 CHATS = $(wildcard data/raw/own_chat/*.txt)
 

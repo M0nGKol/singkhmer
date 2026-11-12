@@ -87,3 +87,14 @@ def test_release_refuses_unverified_and_packages_verified(tmp_path):
     write_jsonl(proc / "test.jsonl", [bad])
     with pytest.raises(ValueError):
         make_release(proc, tmp_path / "none.jsonl", lex, out, "v0.2")
+
+
+def test_show_prints_readable_samples(tmp_path, capsys):
+    from singkhmer.cli import main
+    from singkhmer.schema import write_jsonl
+
+    lex = tmp_path / "lex.jsonl"
+    write_jsonl(lex, [{"khmer": "ចង់", "variants": {"jg": 2, "jong": 1}, "generated": ["chong"], "meaning": "want"}])
+    main(["show", str(lex)])
+    out = capsys.readouterr().out
+    assert "ចង់  [want]" in out and "people: jg(2), jong(1)" in out and "guessed: chong" in out

@@ -15,6 +15,9 @@ data/release/*
 !data/**/.gitkeep
 !data/raw/SOURCES.md
 
+# Trained models (large; publish them as release assets or on Hugging Face)
+models/
+
 # Never commit private chats, consent forms or review sheets with personal info
 private/
 *.consent.*

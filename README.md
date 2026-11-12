@@ -13,8 +13,8 @@ English words. Existing work converts **single words**. This project builds the 
 **sentence-level, real-world, code-mixed** conversion, where the rest of the sentence
 decides which Khmer word is meant.
 
-> Status: **v0.1, data stage.** The pipeline, seed data and synthetic generator work.
-> Real human-verified data is being collected.
+> Status: **v0.1.** Data pipeline, synthetic generator and a first context-aware
+> converter (v1) work. Real human-verified data is being collected.
 
 ## What is in this repository
 
@@ -52,6 +52,46 @@ sukphap jea ey                         →   សុខភាពជាអ្វ�
 orneamyo ng teuk sat nov khet kambta   →   អនាម័យនិងទឹកស្អាតនៅខេត្តកំពត
 ```
 
+## The converter (model v1)
+
+```bash
+make lexicon                    # words + spellings from every corpus file
+singkhmer train-lm              # word trigram language model -> models/lm.pkl.gz
+singkhmer convert "tov kat sok" "sok sabay te?"
+```
+
+```
+tov kat sok  ->  ទៅកាត់សក់
+    sok            សក់          km    1.00   (or: សុខ, សោក, សុក្រ)
+sok sabay te?  ->  សុខសប្បាយទេ?
+    sok            សុខ          km    0.99   (or: សក់, សោក, សុក)
+```
+
+How it works: each romanized word gets Khmer candidates from the lexicon (human spellings
+first, then rule-based guesses, then one-letter typo matches); common English words,
+numbers and emoji stay as typed. **B0** picks the best candidate for each word alone.
+**B2** runs a beam search with a word trigram language model, so the rest of the sentence
+decides (`sok` = hair after `kat`, well-being before `sabay`). Every word comes with a
+confidence and alternatives.
+
+First baseline (v1, before real chat data):
+
+| Test set | Model | Sentence acc. | Word acc. | Top-3 | English kept | CER |
+| --- | --- | --- | --- | --- | --- | --- |
+| 30 drafted chat sentences | B0 | 76.7% | 94.2% | 99.0% | 92.3% | 4.7% |
+| | **B2** | **90.0%** | **97.1%** | **100%** | **100%** | **1.4%** |
+| 857 held-out synthetic sentences | B0 | 6.1% | 63.1% | 84.2% | – | 45.0% |
+| | **B2** | **12.1%** | **69.9%** | **85.7%** | – | **41.1%** |
+
+These are early, indicative numbers: the chat set is small and AI-drafted, and the
+synthetic set is formal web/Wikipedia text with noisy generated spellings. The language
+model has only seen formal text so far, so chat phrases such as `te bong` (ទេបង) are still
+hard. The real benchmark will be the human-verified test set.
+
+```bash
+singkhmer evaluate --data data/interim/synthetic_eval.jsonl   # B0 vs B2 side by side
+```
+
 ## How the data is built
 
 ```
@@ -75,6 +115,7 @@ orneamyo ng teuk sat nov khet kambta   →   អនាម័យនិងទឹ�
 | `singkhmer new-words` / `add-words` | Find words in your chats that nobody has spelled yet → add them to the word list |
 | `singkhmer split` | Leak-free train/dev/test assignment |
 | `singkhmer validate` / `stats` | Check every rule; print dataset statistics |
+| `singkhmer train-lm` / `convert` / `evaluate` | Train the language model, convert sentences, score B0 vs B2 |
 | `singkhmer release` | Package `data/release/<version>/` with dataset card, stats and checksums |
 
 ## Data format

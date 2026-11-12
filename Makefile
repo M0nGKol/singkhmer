@@ -39,8 +39,16 @@ lexicon: ## Build the lexicon from every corpus file (+ seed and generated spell
 synth: ## Generate synthetic romanized/Khmer sentence pairs
 	singkhmer synth --corpus $(CORPORA) --lexicon data/processed/lexicon.jsonl --n $(N_SYNTH) --out data/interim/synthetic.jsonl
 
+CHATS = $(wildcard data/raw/own_chat/*.txt)
+
 newwords: ## List words from your chats (data/raw/own_chat/*.txt) that nobody has spelled yet
-	singkhmer new-words --input $(wildcard data/raw/own_chat/*.txt)
+	@if [ -z "$(CHATS)" ]; then \
+	  echo "No messages found in data/raw/own_chat/."; \
+	  echo "Put your romanized messages there first (one per line), e.g.:"; \
+	  echo '  singkhmer extract-telegram --json path/to/result.json --me "Your Name"'; \
+	  exit 1; fi
+	@if [ ! -f data/processed/lexicon.jsonl ]; then echo "No lexicon yet: run 'make lexicon' first."; exit 1; fi
+	singkhmer new-words --input $(CHATS)
 
 addwords: ## Merge the filled data/interim/new_words.tsv into chat_words.tsv, then rebuild the seed
 	singkhmer add-words

@@ -67,6 +67,42 @@ def cmd_add_words(a):
     _print({**add_words(a.tsv, a.words), "next": "run: make seed"})
 
 
+def cmd_train_lm(a):
+    from .lm import train_lm
+    _print(train_lm(a.corpus, a.out, order=a.order, min_count=a.min_count,
+                    holdout=a.holdout, heldout_out=a.heldout_out))
+
+
+def _converter(a, use_lm: bool = True):
+    from .convert import Converter
+    from .lexicon import load_lexicon
+    from .lm import NGramLM
+    lm = NGramLM.load(a.lm) if use_lm else None
+    return Converter(load_lexicon(a.lexicon), lm, beam=a.beam)
+
+
+def cmd_convert(a):
+    conv = _converter(a, use_lm=not a.no_lm)
+    for text in a.text:
+        res = conv.convert(text)
+        if a.json:
+            _print(res)
+            continue
+        print(f"{res['input']}  ->  {res['khmer']}")
+        for t in res["tokens"]:
+            alts = f"   (or: {', '.join(t['alternatives'])})" if t.get("alternatives") else ""
+            print(f"    {t['rom']:<14} {t['km']:<12} {t['lang']:<5} {t['confidence']:.2f}{alts}")
+
+
+def cmd_evaluate(a):
+    from .evaluate import evaluate
+    from .schema import read_jsonl
+    records = [r for p in a.data for r in read_jsonl(p)][: a.limit]
+    modes = {"b0": False, "b2": True} if a.mode == "both" else {a.mode: a.mode == "b2"}
+    results = {name: evaluate(_converter(a, use_lm=lm), records) for name, lm in modes.items()}
+    _print({"data": a.data, **results})
+
+
 def cmd_validate(a):
     from .schema import read_jsonl, validate_lexicon_entry, validate_record
     check = validate_lexicon_entry if a.kind == "lexicon" else validate_record
@@ -215,6 +251,32 @@ def main(argv=None):
     s.add_argument("--tsv", default="data/interim/new_words.tsv")
     s.add_argument("--words", default="data/seed/chat_words.tsv")
     s.set_defaults(func=cmd_add_words)
+
+    s = sub.add_parser("train-lm", help="train the n-gram language model on the corpus files")
+    s.add_argument("--corpus", nargs="+",
+                   default=["data/interim/corpus.txt", "data/interim/corpus_fineweb2.txt"])
+    s.add_argument("--out", default="models/lm.pkl.gz")
+    s.add_argument("--order", type=int, default=3)
+    s.add_argument("--min-count", type=int, default=2)
+    s.add_argument("--holdout", type=float, default=0.02, help="share of sentences kept out of training")
+    s.add_argument("--heldout-out", default="data/interim/corpus_heldout.txt")
+    s.set_defaults(func=cmd_train_lm)
+
+    for name, fn, hlp in [("convert", cmd_convert, "convert romanized Khmer to Khmer script"),
+                          ("evaluate", cmd_evaluate, "score the converter on sentence files")]:
+        s = sub.add_parser(name, help=hlp)
+        s.add_argument("--lexicon", default="data/processed/lexicon.jsonl")
+        s.add_argument("--lm", default="models/lm.pkl.gz")
+        s.add_argument("--beam", type=int, default=8)
+        s.set_defaults(func=fn)
+        if name == "convert":
+            s.add_argument("text", nargs="+", help='one or more sentences, e.g. "tov kat sok"')
+            s.add_argument("--no-lm", action="store_true", help="B0: no language model")
+            s.add_argument("--json", action="store_true")
+        else:
+            s.add_argument("--data", nargs="+", required=True)
+            s.add_argument("--mode", choices=["b0", "b2", "both"], default="both")
+            s.add_argument("--limit", type=int, default=None)
 
     s = sub.add_parser("validate", help="check dataset files against the rules")
     s.add_argument("files", nargs="+")

@@ -6,6 +6,9 @@ contributors are also recorded here (without personal details).
 ## [0.1.0] - 2026-11-11
 
 ### Added
+- Converter v1: lexicon candidates (human, generated, one-letter typos), English/number
+  keeping, word trigram language model (`train-lm`), beam search (B2) vs word-by-word (B0),
+  per-word confidence and alternatives (`convert`), and metrics (`evaluate`).
 - `singkhmer add-corpus`: stream Khmer web text (FineWeb-2) into its own corpus file;
   `build-lexicon` and `synth` accept several corpus files.
 - `singkhmer new-words` / `add-words`: list words from real messages that nobody has spelled
